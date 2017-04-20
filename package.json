@@ -1,0 +1,11 @@
+{
+    "name": "laravel-delete-link.js",
+    "version": "1.0.0",
+    "keywords": ["laravel", "delete", "link", "helper"],
+    "author": "dams",
+    "contributors": [],
+    "dependencies": {
+        "bootstrap": "^3.3.7",
+        "jquery": "^3.1.1",
+    }
+}
