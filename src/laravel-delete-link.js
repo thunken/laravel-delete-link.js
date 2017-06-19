@@ -37,7 +37,6 @@
                     methodSpoof = $deleteLink.data('method');
                 }
 
-
                 var targetUrl = $deleteLink.data('target-url');
                 var $formModal = buildForm(targetUrl, modalTitle, modalContent, methodSpoof);
 
@@ -60,7 +59,7 @@
             var $submitButton = $('<button></button>')
                 .addClass('btn btn-danger')
                 .attr('type', 'submit')
-                .text('Yes, delete');
+                .text('Yes');
             var $cancelButton = $('<button></button>')
                 .addClass('btn btn-default')
                 .attr('type', 'button')
