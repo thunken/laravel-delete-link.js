@@ -22,31 +22,51 @@
 
                 event.preventDefault();
 
-                var modalTitle = 'Do you want to delete this item?';
-                if ($deleteLink.data('title')) {
-                    modalTitle = $deleteLink.data('title');
-                }
-
-                var modalContent = 'This action can\'t be reversed!';
-                if ($deleteLink.data('content')) {
-                    modalContent = $deleteLink.data('content');
-                }
-
-                var methodSpoof = 'DELETE';
-                if ($deleteLink.data('method')) {
-                    methodSpoof = $deleteLink.data('method');
-                }
-
-                var targetUrl = $deleteLink.data('target-url');
-                var $formModal = buildForm(targetUrl, modalTitle, modalContent, methodSpoof);
-
+                var $formModal = buildForm($deleteLink);
                 $('body').append($formModal);
                 $formModal.modal();
             });
         });
 
-        function buildForm(targetUrl, modalTitle, modalContent, methodSpoof)
+        function buildForm($deleteLink)
         {
+            var modalTitle = 'Do you want to delete this item?';
+            if ($deleteLink.data('title')) {
+                modalTitle = $deleteLink.data('title');
+            }
+
+            var modalContent = 'This action can\'t be reversed!';
+            if ($deleteLink.data('content')) {
+                modalContent = $deleteLink.data('content');
+            }
+
+            var modalConfirmText = 'Delete';
+            if ($deleteLink.data('confirm-text')) {
+                modalConfirmText = $deleteLink.data('confirm-text');
+            }
+
+            var modalConfirmClass = 'btn btn-danger';
+            if ($deleteLink.data('confirm-btn-class')) {
+                modalConfirmClass = $deleteLink.data('confirm-btn-class');
+            }
+
+            var modalCancelText = 'Cancel';
+            if ($deleteLink.data('cancel-text')) {
+                modalCancelText = $deleteLink.data('cancel-text');
+            }
+
+            var modalCancelClass = 'btn btn-warning';
+            if ($deleteLink.data('cancel-btn-class')) {
+                modalCancelClass = $deleteLink.data('cancel-btn-class');
+            }
+
+            var methodSpoof = 'DELETE';
+            if ($deleteLink.data('method')) {
+                methodSpoof = $deleteLink.data('method');
+            }
+
+            var targetUrl = $deleteLink.data('target-url');
+
             var $csrfField = $('<input/>')
                 .attr('name', csrfTokenFieldName)
                 .attr('type', 'hidden')
@@ -57,14 +77,14 @@
                 .attr('value', methodSpoof);
 
             var $submitButton = $('<button></button>')
-                .addClass('btn btn-danger')
+                .addClass(modalConfirmClass)
                 .attr('type', 'submit')
-                .text('Yes');
+                .text(modalConfirmText);
             var $cancelButton = $('<button></button>')
-                .addClass('btn btn-default')
+                .addClass(modalCancelClass)
                 .attr('type', 'button')
                 .attr('data-dismiss', 'modal')
-                .text('No, cancel');
+                .html($('<strong>' + modalCancelText + '</strong>'));
 
             var $form = $('<form></form>')
                 .attr('action', targetUrl)
@@ -74,9 +94,7 @@
                 .append($cancelButton)
                 .append($submitButton);
 
-            var $modal = buildModal($form, modalTitle, modalContent);
-
-            return $modal;
+            return buildModal($form, modalTitle, modalContent);
         }
 
         function buildModal($form, title, content)
