@@ -4,7 +4,7 @@
 
         var settings = $.extend({
 
-        }, $.fn.positive.defaults, options);
+        }, $.fn.laravelDeleteLink.defaults, options);
 
         // Setting some private variables
         var methodSpoofFieldName = '_method';
